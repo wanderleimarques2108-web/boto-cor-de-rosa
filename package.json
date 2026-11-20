@@ -1,0 +1,12 @@
+{
+  "name": "biblioteca-boto-cor-de-rosa",
+  "private": true,
+  "workspaces": ["apps/*", "packages/*"],
+  "scripts": {
+    "dev": "bun run --filter \"@biblioteca/*\" dev",
+    "dev:api": "bun run --filter @biblioteca/api dev",
+    "dev:web": "bun run --filter @biblioteca/web dev",
+    "banco:popular": "bun run --filter @biblioteca/api banco:popular",
+    "build": "bun run --filter @biblioteca/web build"
+  }
+}
