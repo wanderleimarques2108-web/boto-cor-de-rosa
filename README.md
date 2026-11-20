@@ -132,7 +132,7 @@ boto-cor-de-rosa/
 ├── packages/
 │   └── tipos/             ← o "formato" de cada dado, usado pela API e pelo site
 │
-├── docs/                  ← rotas, banco de dados e perguntas para estudar
+├── docs/                  ← rotas da API e banco de dados
 │
 ├── package.json           ← configura o monorepo e os comandos principais
 └── README.md              ← você está aqui
@@ -178,7 +178,6 @@ Cada pasta tem o seu próprio `README.md` explicando o que existe nela.
 | --- | --- |
 | [docs/api.md](docs/api.md) | Rotas da API com exemplos de requisição e resposta |
 | [docs/banco-de-dados.md](docs/banco-de-dados.md) | Tabelas, relacionamento e restrições |
-| [docs/perguntas-provaveis.md](docs/perguntas-provaveis.md) | Perguntas e respostas para o grupo estudar antes da apresentação |
 
 ## ⚠️ Avisos
 
