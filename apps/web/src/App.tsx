@@ -8,12 +8,13 @@
 import { Route, Routes } from "react-router";
 import { Toaster } from "@/components/ui/sonner";
 import { Layout } from "@/components/Layout";
+import { PaginaEmprestimos } from "@/paginas/emprestimos/PaginaEmprestimos";
 
 export function App() {
   return (
     <Layout>
       <Routes>
-        <Route path="/" element={<p className="text-muted-foreground">Em construção.</p>} />
+        <Route path="/" element={<PaginaEmprestimos />} />
       </Routes>
 
       {/* Toaster = área onde aparecem os avisos (sucesso/erro) */}
