@@ -4,7 +4,7 @@
  * Rode com:  bun run banco:popular
  *
  * Este script APAGA tudo e coloca dados de exemplo no banco.
- * Serve para o sistema não começar vazio e para a apresentação.
+ * Serve para o sistema não começar vazio.
  * Em inglês, esse tipo de script costuma se chamar "seed" (semente).
  *
  * Os nomes das pessoas são FICTÍCIOS, como pede o enunciado.

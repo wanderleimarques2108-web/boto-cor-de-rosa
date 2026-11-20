@@ -105,7 +105,7 @@ Abra no navegador: **http://localhost:5173**
 
 ---
 
-## 🧪 Teste do enunciado (roteiro da apresentação)
+## 🧪 Como testar as regras
 
 1. Na tela **Empréstimos**, clique em **Nova retirada**, escolha **B001**, digite um nome e salve.
    Aparece o aviso verde *"Retirada registrada"*.
