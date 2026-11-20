@@ -8,6 +8,7 @@
  * a API sabe fazer. A "receita" de cada item fica na pasta rotas/.
  */
 import * as exemplares from "./rotas/exemplares";
+import * as emprestimos from "./rotas/emprestimos";
 import { erro, traduzirErroDoBanco } from "./rotas/ajudantes";
 
 const PORTA = 3333;
@@ -17,8 +18,13 @@ Bun.serve({
 
   // MAPA DE ROTAS
   // Endereço  ->  { MÉTODO HTTP: função que responde }
+  // O ":id" é uma parte variável do endereço (ex.: /api/emprestimos/7).
   routes: {
     "/api/exemplares": { GET: exemplares.listar },
+
+    "/api/emprestimos": { GET: emprestimos.listar, POST: emprestimos.criar },
+    "/api/emprestimos/:id": { GET: emprestimos.buscar },
+    "/api/emprestimos/:id/devolucao": { PUT: emprestimos.devolver },
   },
 
   // Chamado quando o endereço pedido não existe no mapa acima.
