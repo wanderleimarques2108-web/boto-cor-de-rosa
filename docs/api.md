@@ -74,7 +74,7 @@ curl "http://localhost:3333/api/emprestimos?situacao=aberto"
 ```json
 [
   {
-    "id": 260,
+    "id": 261,
     "exemplar_id": 43,
     "nome_leitor": "Rodrigo Brito",
     "data_retirada": "2026-11-19",
