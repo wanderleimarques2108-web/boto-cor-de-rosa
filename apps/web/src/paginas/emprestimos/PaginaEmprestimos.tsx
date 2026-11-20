@@ -10,7 +10,7 @@
  *     dentro da lista que já chegou.
  */
 import { useEffect, useState } from "react";
-import { Plus, Search } from "lucide-react";
+import { BookCheck, Plus, Search } from "lucide-react";
 import type { EmprestimoDetalhado, SituacaoEmprestimo } from "@biblioteca/tipos";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -22,6 +22,7 @@ import { SeloSituacao } from "@/components/SeloSituacao";
 import { formatarData } from "@/lib/formatar";
 import { listarEmprestimos } from "@/servicos/api";
 import { FormularioRetirada } from "./FormularioRetirada";
+import { FormularioDevolucao } from "./FormularioDevolucao";
 
 // O Select precisa de um valor de texto para "sem filtro".
 const TODAS = "todas";
@@ -39,6 +40,8 @@ export function PaginaEmprestimos() {
   const [situacao, setSituacao] = useState<SituacaoEmprestimo | typeof TODAS>(TODAS);
   const [busca, setBusca] = useState("");
   const [retiradaAberta, setRetiradaAberta] = useState(false);
+  // O empréstimo que está sendo devolvido (null = formulário fechado)
+  const [emDevolucao, setEmDevolucao] = useState<EmprestimoDetalhado | null>(null);
 
   async function carregarEmprestimos() {
     setCarregando(true);
@@ -112,6 +115,7 @@ export function PaginaEmprestimos() {
               <TableHead>Retirada</TableHead>
               <TableHead>Devolução</TableHead>
               <TableHead>Situação</TableHead>
+              <TableHead className="w-48" />
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -128,13 +132,21 @@ export function PaginaEmprestimos() {
                 <TableCell>
                   <SeloSituacao situacao={e.situacao} />
                 </TableCell>
+                <TableCell className="pr-4 text-right">
+                  {/* A ação só aparece para quem ainda não devolveu */}
+                  {e.situacao === "aberto" && (
+                    <Button variant="outline" size="sm" onClick={() => setEmDevolucao(e)}>
+                      <BookCheck /> Registrar devolução
+                    </Button>
+                  )}
+                </TableCell>
               </TableRow>
             ))}
 
             {/* Mensagem quando a lista está vazia (ou ainda carregando) */}
             {emprestimosFiltrados.length === 0 && (
               <TableRow>
-                <TableCell colSpan={6} className="py-10 text-center text-muted-foreground">
+                <TableCell colSpan={7}className="py-10 text-center text-muted-foreground">
                   {carregando ? "Carregando empréstimos..." : termo ? "Nenhum empréstimo corresponde à busca." : LISTA_VAZIA[situacao]}
                 </TableCell>
               </TableRow>
@@ -145,6 +157,14 @@ export function PaginaEmprestimos() {
 
       {retiradaAberta && (
         <FormularioRetirada aoFechar={() => setRetiradaAberta(false)} aoSalvar={carregarEmprestimos} />
+      )}
+
+      {emDevolucao && (
+        <FormularioDevolucao
+          emprestimo={emDevolucao}
+          aoFechar={() => setEmDevolucao(null)}
+          aoSalvar={carregarEmprestimos}
+        />
       )}
     </>
   );
