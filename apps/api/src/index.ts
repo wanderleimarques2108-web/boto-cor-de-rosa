@@ -9,6 +9,7 @@
  */
 import * as exemplares from "./rotas/exemplares";
 import * as emprestimos from "./rotas/emprestimos";
+import * as documentacao from "./rotas/documentacao";
 import { erro, traduzirErroDoBanco } from "./rotas/ajudantes";
 
 const PORTA = 3333;
@@ -25,6 +26,10 @@ Bun.serve({
     "/api/emprestimos": { GET: emprestimos.listar, POST: emprestimos.criar },
     "/api/emprestimos/:id": { GET: emprestimos.buscar },
     "/api/emprestimos/:id/devolucao": { PUT: emprestimos.devolver },
+
+    // Documentação interativa (Scalar). Abra /api/docs no navegador.
+    "/api/openapi.json": { GET: documentacao.openapi },
+    "/api/docs": { GET: documentacao.paginaDocumentacao },
   },
 
   // Chamado quando o endereço pedido não existe no mapa acima.
@@ -41,3 +46,4 @@ Bun.serve({
 });
 
 console.log(`✅ API rodando em http://localhost:${PORTA}/api`);
+console.log(`📖 Documentação em http://localhost:${PORTA}/api/docs`);
