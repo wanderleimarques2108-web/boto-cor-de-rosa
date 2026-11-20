@@ -10,8 +10,9 @@
  *     dentro da lista que já chegou.
  */
 import { useEffect, useState } from "react";
-import { Search } from "lucide-react";
+import { Plus, Search } from "lucide-react";
 import type { EmprestimoDetalhado, SituacaoEmprestimo } from "@biblioteca/tipos";
+import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -20,6 +21,7 @@ import { CabecalhoPagina } from "@/components/CabecalhoPagina";
 import { SeloSituacao } from "@/components/SeloSituacao";
 import { formatarData } from "@/lib/formatar";
 import { listarEmprestimos } from "@/servicos/api";
+import { FormularioRetirada } from "./FormularioRetirada";
 
 // O Select precisa de um valor de texto para "sem filtro".
 const TODAS = "todas";
@@ -36,6 +38,7 @@ export function PaginaEmprestimos() {
   const [carregando, setCarregando] = useState(true);
   const [situacao, setSituacao] = useState<SituacaoEmprestimo | typeof TODAS>(TODAS);
   const [busca, setBusca] = useState("");
+  const [retiradaAberta, setRetiradaAberta] = useState(false);
 
   async function carregarEmprestimos() {
     setCarregando(true);
@@ -65,7 +68,11 @@ export function PaginaEmprestimos() {
 
   return (
     <>
-      <CabecalhoPagina titulo="Empréstimos" descricao="Retiradas e devoluções dos exemplares da biblioteca." />
+      <CabecalhoPagina titulo="Empréstimos" descricao="Retiradas e devoluções dos exemplares da biblioteca.">
+        <Button onClick={() => setRetiradaAberta(true)}>
+          <Plus /> Nova retirada
+        </Button>
+      </CabecalhoPagina>
 
       <Card className="gap-0 p-0">
         <div className="flex flex-wrap items-center gap-3 border-b p-4">
@@ -135,6 +142,10 @@ export function PaginaEmprestimos() {
           </TableBody>
         </Table>
       </Card>
+
+      {retiradaAberta && (
+        <FormularioRetirada aoFechar={() => setRetiradaAberta(false)} aoSalvar={carregarEmprestimos} />
+      )}
     </>
   );
 }
